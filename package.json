@@ -1,0 +1,19 @@
+{
+  "name": "telegram-update-tracker",
+  "version": "1.0.0",
+  "description": "telegram bot to notify the user if a change happens on a site",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nicolofrison/telegram-update-tracker.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nicolofrison/telegram-update-tracker/issues"
+  },
+  "homepage": "https://github.com/nicolofrison/telegram-update-tracker#readme"
+}
