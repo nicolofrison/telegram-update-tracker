@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "telegram bot to notify the user if a change happens on a site",
   "main": "src/index.js",
+  "type": "module",
   "scripts": {
     "start": "node src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
