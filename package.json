@@ -2,8 +2,9 @@
   "name": "telegram-update-tracker",
   "version": "1.0.0",
   "description": "telegram bot to notify the user if a change happens on a site",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
+    "start": "node src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -17,6 +18,7 @@
   },
   "homepage": "https://github.com/nicolofrison/telegram-update-tracker#readme",
   "dependencies": {
+    "dotenv": "^16.0.3",
     "telegraf": "^4.11.2"
   }
 }
