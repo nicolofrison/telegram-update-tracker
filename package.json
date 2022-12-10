@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/nicolofrison/telegram-update-tracker/issues"
   },
-  "homepage": "https://github.com/nicolofrison/telegram-update-tracker#readme"
+  "homepage": "https://github.com/nicolofrison/telegram-update-tracker#readme",
+  "dependencies": {
+    "telegraf": "^4.11.2"
+  }
 }
