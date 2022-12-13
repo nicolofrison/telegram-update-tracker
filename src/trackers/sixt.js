@@ -5,7 +5,8 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const sixtChatsFile = __dirname + "/../trackers-chats/sixt";
+const sixtChatsDir = __dirname + "/../trackers-chats";
+const sixtChatsFile = sixtChatsDir + "/sixt";
 
 const isCheapestSubscriptionCarAvailable = async function() {
   const url = "https://web-api.orange.sixt.com/v1/subscription/subscriptions/offers/country?currency=USD&isoCountryCode=US";
@@ -49,7 +50,7 @@ const init = function(bot) {
         return;
       }
     } else {
-      fs.mkdirSync(sixtChatsFile, { recursive: true });
+      fs.mkdirSync(sixtChatsDir, { recursive: true });
     }
     
     fs.appendFileSync(sixtChatsFile, `${fileExists ? '\n' : ''}${chatId}`);
