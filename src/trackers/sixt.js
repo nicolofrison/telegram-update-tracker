@@ -1,4 +1,11 @@
 import axios from 'axios';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const sixtChatsFile = __dirname + "/../trackers-chats/sixt";
 
 const isCheapestSubscriptionCarAvailable = async function() {
   const url = "https://web-api.orange.sixt.com/v1/subscription/subscriptions/offers/country?currency=USD&isoCountryCode=US";
@@ -28,24 +35,32 @@ const isCheapestSubscriptionCarAvailable = async function() {
   throw new Error("Error on retrieving the page");
 }
 
-const registeredDevices = [];
-
 const init = function(bot) {
   bot.hears('Register to sixt update event', ctx => {
-    if (!registeredDevices.includes(ctx.chat.id)) {
-      registeredDevices.push(ctx.chat.id);
-      
-      bot.telegram.sendMessage(ctx.chat.id, 'You subscribed to receive sixt notifications', {})
-    } else {
-      
-      bot.telegram.sendMessage(ctx.chat.id, 'You are already subscribed', {})
+    const chatId = ctx.chat.id.toString();
+    let fileExists = false;
+
+    if (fs.existsSync(sixtChatsFile)) {
+      fileExists = true;
+      const chatIds = fs.readFileSync(sixtChatsFile).toString().split("\n");
+
+      if (chatIds.includes(chatId)) {
+        bot.telegram.sendMessage(ctx.chat.id, 'You are already subscribed', {});
+        return;
+      }
     }
+    
+    fs.appendFileSync(sixtChatsFile, `${fileExists ? '\n' : ''}${chatId}`);
+
+    bot.telegram.sendMessage(ctx.chat.id, 'You subscribed to receive sixt notifications', {});
   })
   
   setInterval(async () => {
-    if (await isCheapestSubscriptionCarAvailable()) {
-      for (const chatId of registeredDevices) {
-        bot.telegram.sendMessage(chatId, "The sixt plus cheapest car is available again", {});
+    if (fs.existsSync(sixtChatsFile) && await isCheapestSubscriptionCarAvailable()) {
+      const chatIds = fs.readFileSync(sixtChatsFile).toString().split("\n");
+
+      for (const chatId of chatIds) {
+        bot.telegram.sendMessage(parseInt(chatId), "The sixt plus cheapest car is available again", {});
       }
     }
   }, 300000);
