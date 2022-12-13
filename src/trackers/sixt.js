@@ -48,6 +48,8 @@ const init = function(bot) {
         bot.telegram.sendMessage(ctx.chat.id, 'You are already subscribed', {});
         return;
       }
+    } else {
+      fs.mkdirSync(sixtChatsFile, { recursive: true });
     }
     
     fs.appendFileSync(sixtChatsFile, `${fileExists ? '\n' : ''}${chatId}`);
